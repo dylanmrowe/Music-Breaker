@@ -1,5 +1,5 @@
 
-var game = new Phaser.Game(480, 320, Phaser.AUTO, null, {preload: preload, create: create, update: update});
+var game = new Phaser.Game(480, 320, Phaser.CANVAS, null, {preload: preload, create: create, update: update}, true);
 
 var ball;
 var paddle;
@@ -17,13 +17,14 @@ var startButton;
 function preload() {
 	handleRemoteImagesOnJSFiddle();
     game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
+	game.zIndex = 500;
     game.scale.pageAlignHorizontally = true;
     game.scale.pageAlignVertically = true;
-    game.stage.backgroundColor = '#eee';
-    game.load.image('paddle', 'img/paddle.png');
-    game.load.image('brick', 'img/brick.png');
-    game.load.spritesheet('ball', 'img/wobble.png', 20, 20);
-    game.load.spritesheet('button', 'img/button.png', 120, 40);
+    game.stage.backgroundColor = 'rgba(0, 0, 255, 0.8)';
+    game.load.image('paddle', 'paddle2.png');
+    game.load.image('brick', 'brick2.png');
+    game.load.spritesheet('ball', 'wobble2.png', 20, 20);
+    game.load.spritesheet('button', 'button2.png', 120, 40);
 }
 function create() {
     game.physics.startSystem(Phaser.Physics.ARCADE);
@@ -132,6 +133,6 @@ function startGame() {
 
 // this function (needed only on JSFiddle) take care of loading the images from the remote server
 function handleRemoteImagesOnJSFiddle() {
-	game.load.baseURL = 'https://end3r.github.io/Gamedev-Phaser-Content-Kit/demos/';
+	game.load.baseURL = './pictures/';
 	game.load.crossOrigin = 'anonymous';
 }

@@ -16,7 +16,7 @@
 	});
 </script>-->
 	
-<script src="http://code.jquery.com/jquery-1.7.2.js"></script>
+<!--<script src="http://code.jquery.com/jquery-1.7.2.js"></script>-->
 	
 <!--<script>
 	var url = 'https://api.soundcloud.com/tracks?client_id=9fac4561902d4ea62413392ed74aa2b0';
@@ -27,7 +27,7 @@
 	});
 </script>-->
 	
-<script src="https://connect.soundcloud.com/sdk/sdk-3.0.0.js"></script>
+<!--<script src="https://connect.soundcloud.com/sdk/sdk-3.0.0.js"></script>-->
 	
 <!--<script>
 	SC.initialize({
@@ -44,38 +44,82 @@
 </script>-->
 	
 <!--<script src="https://connect.soundcloud.com/sdk/sdk-3.0.0.js"></script>-->
+<head>
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+	<script src="http://w.soundcloud.com/player/api.js"></script>
+	<script>
+	   $(document).ready(function() {
+		 var widget = SC.Widget(document.getElementById('soundcloud_widget'));
+		 widget.bind(SC.Widget.Events.READY, function() {
+		   console.log('Ready...');
+		 });
+		 $('button').click(function() {
+		   widget.toggle();
+		 });
+	   });
+	 </script>
 	
-<script>
+	
+	
+	<script>
 	SC.initialize({
 	  client_id: '9fac4561902d4ea62413392ed74aa2b0'
 	});
+	
+
+	
+
 	
 /*	SC.get('/tracks', {
 	  q: '8bitsongs'
 	}).then(function(tracks) {
 	  console.log(tracks);
 	});*/
+	/*SC.get("/tracks/75868018", {}, function(sound){
+		//alert("Sound URI: "+sound.uri);
+		$("#audio-test").attr("src", sound.uri);
+	});
 	
-	var trackUrl = 'http://soundcloud.com/8bitsongs';
+	var a={};
+	a = loadSoundHTML5(sound.uri+"/stream?client_id=9fac4561902d4ea62413392ed74aa2b0");*/
+	
+	/*var trackUrl = 'http://soundcloud.com/8bitsongs';
 	$.get(
 	  'http://api.soundcloud.com/resolve.json?url=' + trackUrl + '&client_id=9fac4561902d4ea62413392ed74aa2b0', 
 	  function (result) {
 		  var stuff = result.username;
 		console.log(result);
-		  $("#info").html(stuff);
+		  $("#info").append(stuff);
 	  }
-	);
+	);*/
 	
 	// stream track id 293
-	/*SC.stream('/tracks/293').then(function(player){
-	  player.play();
-	});*/
-</script>
+	/*function playSong(){
+		var sound = SC.stream('/tracks/293').then(function(player){
+		  player.play();
+		});
+
+	}*/
+	</script>
+	
+</head>
 	
 	<body>
+		<audio id="audio-test" controls></audio>
 		<div id="info">
-		
+		     Song Artist:
+			
 		</div>
+		<button onclick = "playSong()" id="play">
+		Play
+		</button>
+		
+		<iframe id="soundcloud_widget"
+		  src="http://w.soundcloud.com/player/?url=https://api.soundcloud.com/tracks/39804767&show_artwork=false&liking=false&sharing=false&auto_play=true"
+		  width="420"
+		  height="120"
+		  frameborder="no">
+		</iframe>
 	</body>
 	
 </html>
