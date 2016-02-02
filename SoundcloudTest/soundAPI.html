@@ -1,0 +1,81 @@
+<html>
+
+<!--<script src="//code.jquery.com/jquery-1.12.0.min.js">
+
+	$(document).ready(function() 
+	{
+		console.log("ready!");
+		$.ajax({
+		  url: "https://api.github.com/users/dylanmrowe",
+		  success: function( data ) 
+		  {
+			console.log(data);
+			$( "#myid" ).html( "<strong>ID = " + data.id + "</strong> degrees" );
+		  }
+		});
+	});
+</script>-->
+	
+<script src="http://code.jquery.com/jquery-1.7.2.js"></script>
+	
+<!--<script>
+	var url = 'https://api.soundcloud.com/tracks?client_id=9fac4561902d4ea62413392ed74aa2b0';
+	$.getJSON(url, function(tracks) {
+	  $(tracks).each(function(track) {
+		console.log(track.title);
+	  }
+	});
+</script>-->
+	
+<script src="https://connect.soundcloud.com/sdk/sdk-3.0.0.js"></script>
+	
+<!--<script>
+	SC.initialize({
+	  client_id: '9fac4561902d4ea62413392ed74aa2b0',
+	  redirect_uri: './callback.html'
+	});
+
+	// initiate auth popup
+	SC.connect().then(function() {
+	  return SC.get('/me');
+	}).then(function(me) {
+	  alert('Hello, ' + me.username);
+	});
+</script>-->
+	
+<!--<script src="https://connect.soundcloud.com/sdk/sdk-3.0.0.js"></script>-->
+	
+<script>
+	SC.initialize({
+	  client_id: '9fac4561902d4ea62413392ed74aa2b0'
+	});
+	
+/*	SC.get('/tracks', {
+	  q: '8bitsongs'
+	}).then(function(tracks) {
+	  console.log(tracks);
+	});*/
+	
+	var trackUrl = 'http://soundcloud.com/8bitsongs';
+	$.get(
+	  'http://api.soundcloud.com/resolve.json?url=' + trackUrl + '&client_id=9fac4561902d4ea62413392ed74aa2b0', 
+	  function (result) {
+		  var stuff = result.username;
+		console.log(result);
+		  $("#info").html(stuff);
+	  }
+	);
+	
+	// stream track id 293
+	/*SC.stream('/tracks/293').then(function(player){
+	  player.play();
+	});*/
+</script>
+	
+	<body>
+		<div id="info">
+		
+		</div>
+	</body>
+	
+</html>

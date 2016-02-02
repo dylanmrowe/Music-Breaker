@@ -1,0 +1,5 @@
+Client ID: 9fac4561902d4ea62413392ed74aa2b0
+Client Secret: 427fe8b53f7b93e165a7c898e33de97e
+
+End User Authorization: https://soundcloud.com/connect
+Token: https://api.soundcloud.com/oauth2/token
