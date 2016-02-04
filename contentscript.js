@@ -41,7 +41,7 @@ else {
 		iFrame.style.position = 'fixed'; 
 		iFrame.style.top = 0; 
 		iFrame.style.left = 0;
-		iFrame.style.zIndex = 2000000000;
+		iFrame.style.zIndex = 0;
 		iFrame.style.border = 0;
 		iFrame.src = chrome.extension.getURL("index.html");
 

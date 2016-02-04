@@ -13,6 +13,8 @@ var livesText;
 var lifeLostText;
 var playing = false;
 var startButton;
+var speeder = 0;
+var bricksAlive;
 
 function preload() {
 	handleRemoteImagesOnJSFiddle();
@@ -21,8 +23,12 @@ function preload() {
     game.scale.pageAlignHorizontally = true;
     game.scale.pageAlignVertically = true;
     game.stage.backgroundColor = 'rgba(0, 0, 255, 0.8)';
-    game.load.image('paddle', 'paddle2.png');
-    game.load.image('brick', 'brick2.png');
+    game.load.image('paddle', 'paddle3.png');
+    game.load.image('brick3', 'brick3.png');
+	game.load.image('brick4', 'brick4.png');
+	game.load.image('brick5', 'brick5.png');
+	game.load.image('brick6', 'brick6.png');
+	game.load.image('brick7', 'brick7.png');
     game.load.spritesheet('ball', 'wobble2.png', 20, 20);
     game.load.spritesheet('button', 'button2.png', 120, 40);
 }
@@ -30,7 +36,7 @@ function create() {
     game.physics.startSystem(Phaser.Physics.ARCADE);
     game.physics.arcade.checkCollision.down = false;
     ball = game.add.sprite(game.world.width*0.5, game.world.height-25, 'ball');
-    ball.animations.add('wobble', [0,1,0,2,0,1,0,2,0], 24);
+    //ball.animations.add('wobble', [0,1,0,2,0,1,0,2,0], 24);
     ball.anchor.set(0.5);
     game.physics.enable(ball, Phaser.Physics.ARCADE);
     ball.body.collideWorldBounds = true;
@@ -43,13 +49,12 @@ function create() {
     game.physics.enable(paddle, Phaser.Physics.ARCADE);
     paddle.body.immovable = true;
 
-    initBricks();
-
-    textStyle = { font: '18px Arial', fill: '#0095DD' };
+	textStyle = { font: '18px Arial', fill: '#00feDD' };
+    textStyle2 = { font: '18px Arial', fill: '#FF0000' };
     scoreText = game.add.text(5, 5, 'Points: 0', textStyle);
     livesText = game.add.text(game.world.width-5, 5, 'Lives: '+lives, textStyle);
     livesText.anchor.set(1,0);
-    lifeLostText = game.add.text(game.world.width*0.5, game.world.height*0.5, 'Life lost, tap to continue', textStyle);
+    lifeLostText = game.add.text(game.world.width*0.5, game.world.height*0.5, 'FAIL. Click to continue...', textStyle2);
     lifeLostText.anchor.set(0.5);
     lifeLostText.visible = false;
 
@@ -77,16 +82,34 @@ function initBricks() {
         },
         padding: 10
     }
+	bricksAlive = 0;
     bricks = game.add.group();
     for(c=0; c<brickInfo.count.col; c++) {
         for(r=0; r<brickInfo.count.row; r++) {
             var brickX = (r*(brickInfo.width+brickInfo.padding))+brickInfo.offset.left;
             var brickY = (c*(brickInfo.height+brickInfo.padding))+brickInfo.offset.top;
-            newBrick = game.add.sprite(brickX, brickY, 'brick');
+			var rand = Math.floor((Math.random() * 5) + 1);
+			if(rand == 1){
+				newBrick = game.add.sprite(brickX, brickY, 'brick3');
+			}
+			else if(rand == 2){
+				newBrick = game.add.sprite(brickX, brickY, 'brick4');
+			}
+			else if(rand == 3){
+				newBrick = game.add.sprite(brickX, brickY, 'brick5');
+			}
+			else if(rand == 4){
+				newBrick = game.add.sprite(brickX, brickY, 'brick6');
+			}
+			else{
+				newBrick = game.add.sprite(brickX, brickY, 'brick7');
+			}
+            
             game.physics.enable(newBrick, Phaser.Physics.ARCADE);
             newBrick.body.immovable = true;
             newBrick.anchor.set(0.5);
             bricks.add(newBrick);
+			bricksAlive += 1;
         }
     }
 }
@@ -98,10 +121,58 @@ function ballHitBrick(ball, brick) {
     }, this);
     killTween.start();
     score += 10;
+	bricksAlive -= 1;
+	if(brick.texture == 'brick3.png'){
+		alert('░░░░░░░░░░░░░░░░░░░░░░░░░░░░░\n'+
+				'░░░░░░░░░░░░░▄▄▄▄▄▄▄░░░░░░░░░\n'+
+				'░░░░░░░░░▄▀▀▀░░░░░░░▀▄░░░░░░░\n'+
+				'░░░░░░░▄▀░░░░░░░░░░░░▀▄░░░░░░\n'+
+				'░░░░░░▄▀░░░░░░░░░░▄▀▀▄▀▄░░░░░\n'+
+				'░░░░▄▀░░░░░░░░░░▄▀░░██▄▀▄░░░░\n'+
+				'░░░▄▀░░▄▀▀▀▄░░░░█░░░▀▀░█▀▄░░░\n'+
+				'░░░█░░█▄▄░░░█░░░▀▄░░░░░▐░█░░░\n'+
+				'░░▐▌░░█▀▀░░▄▀░░░░░▀▄▄▄▄▀░░█░░\n'+
+				'░░▐▌░░█░░░▄▀░░░░░░░░░░░░░░█░░\n'+
+				'░░▐▌░░░▀▀▀░░░░░░░░░░░░░░░░▐▌░\n'+
+				'░░▐▌░░░░░░░░░░░░░░░▄░░░░░░▐▌░\n'+
+				'░░▐▌░░░░░░░░░▄░░░░░█░░░░░░▐▌░\n'+
+				'░░░█░░░░░░░░░▀█▄░░▄█░░░░░░▐▌░\n'+
+				'░░░▐▌░░░░░░░░░░▀▀▀▀░░░░░░░▐▌░\n'+
+				'░░░░█░░░░░░░░░░░░░░░░░░░░░█░░\n'+
+				'░░░░▐▌▀▄░░░░░░░░░░░░░░░░░▐▌░░\n'+
+				'░░░░░█░░▀░░░░░░░░░░░░░░░░▀░░░\n'+
+				'░░░░░░░░░░░░░░░░░░░░░░░░░░░░░\n');
+	}
     scoreText.setText('Points: '+score);
-    if(score === brickInfo.count.row*brickInfo.count.col*10) {
-        alert('You won the game, congratulations!');
-        location.reload();
+    //if(score === brickInfo.count.row*brickInfo.count.col*10) {
+	if(bricksAlive == 0){
+		alert('░░░░░░░░░░░░░░░░░░░░░░░░░░░░░\n'+
+		'░░░░░░░░░░░░░▄▄▄▄▄▄▄░░░░░░░░░\n'+
+		'░░░░░░░░░▄▀▀▀░░░░░░░▀▄░░░░░░░\n'+
+		'░░░░░░░▄▀░░░░░░░░░░░░▀▄░░░░░░\n'+
+		'░░░░░░▄▀░░░░░░░░░░▄▀▀▄▀▄░░░░░\n'+
+		'░░░░▄▀░░░░░░░░░░▄▀░░██▄▀▄░░░░\n'+
+		'░░░▄▀░░▄▀▀▀▄░░░░█░░░▀▀░█▀▄░░░\n'+
+		'░░░█░░█▄▄░░░█░░░▀▄░░░░░▐░█░░░\n'+
+		'░░▐▌░░█▀▀░░▄▀░░░░░▀▄▄▄▄▀░░█░░\n'+
+		'░░▐▌░░█░░░▄▀░░░░░░░░░░░░░░█░░\n'+
+		'░░▐▌░░░▀▀▀░░░░░░░░░░░░░░░░▐▌░\n'+
+		'░░▐▌░░░░░░░░░░░░░░░▄░░░░░░▐▌░\n'+
+		'░░▐▌░░░░░░░░░▄░░░░░█░░░░░░▐▌░\n'+
+		'░░░█░░░░░░░░░▀█▄░░▄█░░░░░░▐▌░\n'+
+		'░░░▐▌░░░░░░░░░░▀▀▀▀░░░░░░░▐▌░\n'+
+		'░░░░█░░░░░░░░░░░░░░░░░░░░░█░░\n'+
+		'░░░░▐▌▀▄░░░░░░░░░░░░░░░░░▐▌░░\n'+
+		'░░░░░█░░▀░░░░░░░░░░░░░░░░▀░░░\n'+
+		'░░░░░░░░░░░░░░░░░░░░░░░░░░░░░\n');
+		
+		//bricks.destroy(true, true);
+		initBricks();
+		
+		speeder += 100;
+		ball.reset(game.world.width*0.5, game.world.height-25);
+		ball.body.velocity.set(200+speeder, -200-speeder);
+        //location.reload();
     }
 }
 function ballLeaveScreen() {
@@ -113,21 +184,44 @@ function ballLeaveScreen() {
         paddle.reset(game.world.width*0.5, game.world.height-5);
         game.input.onDown.addOnce(function(){
             lifeLostText.visible = false;
-            ball.body.velocity.set(150, -150);
+            ball.body.velocity.set(200+speeder, -200-speeder);
         }, this);
     }
     else {
-        alert('You lost, game over!');
-        location.reload();
+        alert('Dead. Score = ' + score);
+		score = 0;
+		speeder = 0;
+		lives = 3;
+		scoreText.setText('Points: '+score);
+		livesText.setText('Lives: '+lives);
+		startButton = game.add.button(game.world.width*0.5, game.world.height*0.5, 'button', startGame, this, 1, 0, 2);
+    	startButton.anchor.set(0.5);
+		ball.reset(game.world.width*0.5, game.world.height-25);
+		/*for (var i = 0, len = bricks.children.length; i < len; i++) 
+		{  		
+				//console.log(bricks.children[i]);
+			if(bricks.children[i] != undefined){
+				var killTween = game.add.tween(bricks.children[i].scale);
+				killTween.to({x:0,y:0}, 200, Phaser.Easing.Linear.None);
+				killTween.onComplete.addOnce(function(){
+					bricks.children[i].kill();
+				}, this);
+				killTween.start();
+			}
+			
+		}*/
+		bricks.destroy(true, true);
+        //location.reload();
     }
 }
 function ballHitPaddle(ball, paddle) {
-    ball.animations.play('wobble');
+    //ball.animations.play('wobble');
     ball.body.velocity.x = -1*5*(paddle.x-ball.x);
 }
 function startGame() {
+	initBricks();
     startButton.destroy();
-    ball.body.velocity.set(150, -150);
+    ball.body.velocity.set(200+speeder, -200-speeder);
     playing = true;
 }
 

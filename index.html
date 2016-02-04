@@ -13,9 +13,21 @@
 		}
 		
 		#EVERYTHING{
-			z-index:-1;
+			/*z-index:-1;*/
 /*			display:inline;*/
 			visibility: hidden;
+		}
+		
+		.menu-controls{
+			visibility: visible;
+		}
+		
+		#fullscreen{
+			visibility: visible;
+		}
+		
+		.fade{
+			visibility: visible;
 		}
 	
 	</style>
@@ -65,6 +77,11 @@
 		  height="120"
 		  frameborder="no">
 		</iframe>-->
+		<!--<div text-color="white">
+			<a href="#" class="key" >    <span color="black">f</span></a>ull screen</a>
+		<br>
+		Press it for cool stuff!!!
+		</div>-->
 		<div id="EVERYTHING">
 		<div id="dragover" class="dragover"></div>
         <div id="tooltip" class="tooltip"></div>
@@ -100,9 +117,9 @@
                         <li>
                             <a href="#" class="key"><span>f</span></a>ull screen</a>
                         </li>
-                        <li>
+                        <!--<li>
                             <a href="#" class="key"><span>m</span></a>enu</a>
-                        </li>
+                        </li>-->
                         <li>
                             <a href="#" class="key"><span>c</span></a>hange song</a>
                         </li>
@@ -123,23 +140,23 @@
         </div>
         <div class="md-modal md-effect-1" id="modal-soundcloud">
             <div class="md-content">
-                <h3>Play Audio via SoundCloud*</h3>
+                <h3>Play Audio via SoundCloud</h3>
                 <div style='line-height: 23px;'>
-                <span style='margin-top: -35px; display: block; font-family: helvetica neue;'>*Only works in Chrome at the moment</span>
+                <span style='margin-top: -35px; display: block; font-family: helvetica neue;'><!--*Only works in Chrome at the moment--></span>
                 <i id='sc_icon' class="icon-soundcloud"></i>
                     <p>
                         <br />
 
-                        Simply paste in a link to a <a href='http://soundcloud.com'>SoundCloud</a> artist, track, or playlist and click import:<br />
+                        Paste in a link to a <a href='http://soundcloud.com'>SoundCloud</a> artist, track, or playlist and click import:<br />
 
                          <input id='sc_input' placeholder='ex. https://soundcloud.com/mydevices/launch'>
                          <button class="sc_import">import audio</button>
 
-                        <br /><br />
+                       <!-- <br /><br />
 
                         You can also share it with the following URL:
 
-                        <pre id='sc_url' style='word-wrap: break-word; text-align: center;'>http://preziotte.com/partymode?sc=<span>SOUNDCLOUD_URL</span></pre>
+                        <pre id='sc_url' style='word-wrap: break-word; text-align: center;'>http://preziotte.com/partymode?sc=<span>SOUNDCLOUD_URL</span></pre>-->
 
                     </p>
 
@@ -172,11 +189,12 @@
             <div id='progressBar' class='progressBar'></div>
             <div class='song-metadata'></div>
             <div class='menu-controls'>
+				<i class = "i icon-expand"></i>
                 <i class="i icon-backward2"></i> 
                 <i class="i icon-pause"></i> 
                 <i class="i icon-forward2"></i> 
                 <i class="i icon-soundcloud schover" data-hovertext='Play music from a SoundCloud URL.'></i> 
-                <i class="i icon-microphone" data-hovertext='Connect to the microphone on your computer.'></i> 
+                <!--<i class="i icon-microphone" data-hovertext='Connect to the microphone on your computer.'></i> -->
             </div>
 
             <div class='menu-wide'>

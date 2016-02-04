@@ -174,31 +174,9 @@
 		}
 		else {
 			console.log(" -- sound loaded via html5 audio");
-			$.get(
-			  'http://api.soundcloud.com/resolve.json?url=' + 'https://soundcloud.com/8bitsongs' + '&client_id=67129366c767d009ecc75cec10fa3d0f', 
-			  	function (result) {
-					SC.initialize({
-						client_id: '67129366c767d009ecc75cec10fa3d0f'
-					});
-
-					SC.get("/users/"+result.id+"/tracks", function(sound) {
-						State.soundCloudTracks = sound.length;
-						State.soundCloudData = sound;
-						sound = sound[0];
-						console.log(sound);
-						console.log(sound.title)
-						console.log(sound.user.permalink)
-						//sound.uri = sound.uri.replace(/.*?:\/\//g, "http://www.corsproxy.com/");
-
-						h.renderSongTitle(sound);
-						a.loadSoundHTML5(sound.uri+'/stream?client_id=67129366c767d009ecc75cec10fa3d0f');
-
-					});
-			  	}
-			);
-			//var path = 'mp3/'+State.playlist[0];
-			//a.loadSoundHTML5(path);
-	    	//h.readID3(path);
+			var path = 'mp3/'+State.playlist[0];
+			a.loadSoundHTML5(path);
+	    	h.readID3(path);
 		}
 
 		};
@@ -287,7 +265,7 @@
 					h.renderSongTitle(sound);
 					a.loadSoundHTML5(sound.uri+'/stream?client_id=67129366c767d009ecc75cec10fa3d0f');
 
-				});
+		});
 
 	    	}
 
