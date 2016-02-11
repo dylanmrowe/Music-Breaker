@@ -1,5 +1,7 @@
 
-***Try fullscreen!!! More game functionality coming soon***
+***Try fullscreen!!!***  More game functionality coming soon.
+
+<br>
 Try the game out here: http://ec2-52-34-83-155.us-west-2.compute.amazonaws.com/201/blocks/index.html
 
 Overview
