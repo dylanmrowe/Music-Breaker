@@ -31,6 +31,7 @@ function preload() {
 	game.load.image('brick7', 'brick7.png');
     game.load.spritesheet('ball', 'wobble2.png', 20, 20);
     game.load.spritesheet('button', 'button2.png', 120, 40);
+	alert('Try out FullScreen! (Bottom Right Icon)');
 }
 function create() {
     game.physics.startSystem(Phaser.Physics.ARCADE);
@@ -146,7 +147,7 @@ function ballHitBrick(ball, brick) {
     scoreText.setText('Points: '+score);
     //if(score === brickInfo.count.row*brickInfo.count.col*10) {
 	if(bricksAlive == 0){
-		alert('░░░░░░░░░░░░░░░░░░░░░░░░░░░░░\n'+
+		alert('FASTER\n░░░░░░░░░░░░░░░░░░░░░░░░░░░░░\n'+
 		'░░░░░░░░░░░░░▄▄▄▄▄▄▄░░░░░░░░░\n'+
 		'░░░░░░░░░▄▀▀▀░░░░░░░▀▄░░░░░░░\n'+
 		'░░░░░░░▄▀░░░░░░░░░░░░▀▄░░░░░░\n'+
